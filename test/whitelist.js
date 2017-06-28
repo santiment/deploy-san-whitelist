@@ -1,6 +1,6 @@
 let MinMaxWhiteList = artifacts.require("./MinMaxWhiteList.sol");
 let MinMaxWhiteListUser = artifacts.require("./MinMaxWhiteListUser.sol");
-let limitList = require("../san-whitelist-1v0.js");
+let limitList = require("../san-whitelist-1v1.js");
 let Promise = require("bluebird");
 let BigNumber = require('bignumber.js');
 
