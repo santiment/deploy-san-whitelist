@@ -1,10 +1,9 @@
 let MinMaxWhiteList = artifacts.require("./MinMaxWhiteList.sol");
 let MinMaxWhiteListUser = artifacts.require("./MinMaxWhiteListUser.sol");
-let limitList = require("../san-whitelist-example-big.js");
+let limitList = require("../san-whitelist-1v0.js");
 let Promise = require("bluebird");
 let BigNumber = require('bignumber.js');
 
-//const BLOCK_LEN = 160;
 const BLOCK_LEN = 160;
 
 contract('MinMaxWhiteList', function(accounts) {
@@ -16,10 +15,19 @@ contract('MinMaxWhiteList', function(accounts) {
         let duplicates = [];
         limitList.forEach(e => {
             let low_addr = e.addr.toLowerCase();
+            if (e.max == 0) console.log("WARN: max==0 for addr:"+e.addr);
             if (seenAddr.has(low_addr)) duplicates.push(e.addr)
             else seenAddr.add(low_addr);
         });
         assert.deepEqual([],duplicates,"duplicates found!");
+    });
+
+    it('should fail to send ether to contract', function(done){
+        MinMaxWhiteList.deployed().then(_whiteList => {
+            web3.eth.send(_whiteList, {from:accounts[0], value:1});
+        })
+        .then (tx    => done("payment shoudl fail!"))
+        .catch(error => done());
     });
 
     it('should successfull populate addresses', function(){

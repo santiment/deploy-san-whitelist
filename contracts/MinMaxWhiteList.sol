@@ -1,5 +1,10 @@
 pragma solidity ^0.4.11;
 contract MinMaxWhiteList {
+
+    string constant public VERSION = "0.2.0";
+
+    function () { throw; }   //explicitly unpayable
+
     struct Limit {
         uint24 min;  //ethers
         uint24 max;  //ethers
@@ -29,8 +34,21 @@ contract MinMaxWhiteList {
         require ( chunkNr++ == _chunkNr);
         require ( mins.length == len &&  mins.length == len );
         for(uint16 i=0; i<len; ++i) {
-            allowed[addrs[i]] = Limit({min:mins[i], max:maxs[i]});
-            controlSum += uint160(addrs[i]) + mins[i] + maxs[i];
+            var addr = addrs[i];
+            var max  = maxs[i];
+            var min  = mins[i];
+            Limit lim = allowed[addr];
+            //remove old record if exists
+            if (lim.max > 0) {
+                controlSum -= uint160(addr) + lim.min + lim.max;
+                delete allowed[addr];
+            }
+            //insert record if max > 0
+            if (max > 0) {
+                // max > 0 means add a new record into the list.
+                allowed[addr] = Limit({min:min, max:max});
+                controlSum += uint160(addr) + min + max;
+            }
         }
     }
 
