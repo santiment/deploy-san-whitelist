@@ -1,10 +1,10 @@
 pragma solidity ^0.4.11;
-import  './MinMaxWhiteList.sol';
+import  './SantimentWhiteList.sol';
 
-contract MinMaxWhiteListUser {
-    MinMaxWhiteList whiteList;
+contract SantimentWhiteListUser {
+    SantimentWhiteList whiteList;
 
-    function MinMaxWhiteListUser(MinMaxWhiteList _whiteList) {
+    function SantimentWhiteListUser(SantimentWhiteList _whiteList) {
         whiteList = _whiteList;
     }
 

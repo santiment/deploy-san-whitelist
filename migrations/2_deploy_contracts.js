@@ -1,9 +1,9 @@
-var MinMaxWhiteList = artifacts.require("./MinMaxWhiteList.sol");
-var MinMaxWhiteListUser = artifacts.require("./MinMaxWhiteListUser.sol");
+var SantimentWhiteList = artifacts.require("./SantimentWhiteList.sol");
+var SantimentWhiteListUser = artifacts.require("./SantimentWhiteListUser.sol");
 module.exports = function(deployer, network) {
-    deployer.deploy(MinMaxWhiteList).then( function() {
-        return MinMaxWhiteList.deployed();
+    deployer.deploy(SantimentWhiteList).then( function() {
+        return SantimentWhiteList.deployed();
     }).then(whiteList => {
-        return deployer.deploy(MinMaxWhiteListUser,whiteList.address);
+        return deployer.deploy(SantimentWhiteListUser,whiteList.address);
     });
 };
