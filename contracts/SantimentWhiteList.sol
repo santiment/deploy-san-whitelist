@@ -30,7 +30,7 @@ pragma solidity ^0.4.11;
 /// @title Santiment WhiteList contract
 contract SantimentWhiteList {
 
-    string constant public VERSION = "0.2.0";
+    string constant public VERSION = "0.3.0";
 
     function () { throw; }   //explicitly unpayable
 
@@ -47,6 +47,7 @@ contract SantimentWhiteList {
 
     mapping(address=>Limit) public allowed;
     uint16  public chunkNr = 0;
+    uint    public recordNum = 0;
     uint256 public controlSum = 0;
     bool public isSetupMode = true;
     address public admin;
@@ -78,11 +79,14 @@ contract SantimentWhiteList {
                 allowed[addr] = Limit({min:min, max:max});
                 controlSum += uint160(addr) + min + max;
             }
-        }
+        }//for
+        recordNum+=len;
     }
 
-    ///@dev disable setup mode
-    function start() public {
+    ///@notice switch off setup mode
+    function start()
+    adminOnly
+    public {
         isSetupMode = false;
     }
 
@@ -95,4 +99,5 @@ contract SantimentWhiteList {
         if (msg.sender != admin) throw;
         _;
     }
+
 }
