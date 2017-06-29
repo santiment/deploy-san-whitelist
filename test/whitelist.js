@@ -1,7 +1,7 @@
 let SantimentWhiteList = artifacts.require("./SantimentWhiteList.sol");
 let SantimentWhiteListUser = artifacts.require("./SantimentWhiteListUser.sol");
 //let limitList = require("../san-whitelist-example-10lines.js");
-let limitList = require("../san-whitelist-1v1.js");
+let limitList = require("../san-whitelist-1v2.js");
 let Promise = require("bluebird");
 let BigNumber = require('bignumber.js');
 
