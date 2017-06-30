@@ -740,6 +740,7 @@ module.exports = [
 , { addr: "0x9345D6de501E30089D045eC84A461Ba4973F6eC0", min: 5, max: 10 }
 , { addr: "0x7544b7dA3bd457908108AB38e2a0dd65de3a6b09", min: 4, max: 8 }
 , { addr: "0xD3388E1ed707443442Afa9Bb133D9dfFacD9b467", min: 600, max: 600 }
+, { addr: "0xe106A496db65e29ae8D16Dd7ecfE2FE8967266a2", min: 600, max: 0 }
 , { addr: "0xD6C1590B5BE28453aE7F04247600F2AE697bC58A", min: 5, max: 10 }
 , { addr: "0x3833f8dbdbd6bdcb6a883ff209b869148965b364", min: 30, max: 36 }
 ];
