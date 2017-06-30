@@ -1,0 +1,25 @@
+{
+  "name": "deploy-san-whitelist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "san-whitelist-0v1.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/santiment/deploy-san-whitelist.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/santiment/deploy-san-whitelist/issues"
+  },
+  "homepage": "https://github.com/santiment/deploy-san-whitelist#readme",
+  "dependencies": {
+    "ethereum-address": "0.0.4"
+  }
+}

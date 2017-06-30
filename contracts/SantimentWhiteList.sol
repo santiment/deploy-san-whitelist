@@ -30,7 +30,7 @@ pragma solidity ^0.4.11;
 /// @title Santiment WhiteList contract
 contract SantimentWhiteList {
 
-    string constant public VERSION = "0.3.0";
+    string constant public VERSION = "0.3.1";
 
     function () { throw; }   //explicitly unpayable
 

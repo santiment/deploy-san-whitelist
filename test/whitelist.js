@@ -4,7 +4,7 @@ let SantimentWhiteListUser = artifacts.require("./SantimentWhiteListUser.sol");
 let limitList = require("../san-whitelist-1v2.js");
 let Promise = require("bluebird");
 let BigNumber = require('bignumber.js');
-
+const eth = require('ethereum-address');
 const BLOCK_LEN = 160;
 
 contract('SantimentWhiteList', function(accounts) {
@@ -17,6 +17,7 @@ contract('SantimentWhiteList', function(accounts) {
         let seenAddr = new Set();
         let duplicates = [];
         limitList.forEach(e => {
+            assert.ok(eth.isAddress(e.addr));
             let low_addr = e.addr.toLowerCase();
             if (e.max == 0) console.log("WARN: max==0 for addr:"+e.addr);
             else sum_max+=e.max;
@@ -76,13 +77,14 @@ contract('SantimentWhiteList', function(accounts) {
             return Promise.each(limitList, (e, n, len) => {
                 let min = toFinney(e.min);
                 let max = toFinney(e.max);
-                return whiteListUser.assert(e.addr,min,max)
+                return whiteListUser.assert(whiteList.address,e.addr,min,max)
                    .then(() => {
                         if (n % 100 == 99 || n == len-1) {
                             console.log('Verified ', n+1, ' addresses ');
                         }
                         sum = sum.plus(e.addr).plus(min).plus(max);
-                   }).catch(()=>{
+                   }).catch((e)=>{
+                     //console.log(e);
                      console.log('Failure at address', n, ', addr:',e.addr, min, max);
                    });
             }).then(() => whiteList.controlSum()).then(_sum => {
