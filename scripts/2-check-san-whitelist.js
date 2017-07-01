@@ -1,6 +1,6 @@
 var SantimentWhiteListUser = artifacts.require("./SantimentWhiteListUser.sol");
 var SantimentWhiteList = artifacts.require("./SantimentWhiteList.sol");
-let limitList = require("../san-whitelist-1v3.js");
+let limitList = require("../san-whitelist-1v4.js");
 let Promise = require("bluebird");
 let BigNumber = require('bignumber.js');
 let assert = require('assert');
@@ -14,8 +14,10 @@ module.exports = function(done) {
     let whiteList;
     let sum = new BigNumber(0);
     return SantimentWhiteList.at("0xd2675d3ea478692ad34f09fa1f8bda67a9696bf7")
+    //return SantimentWhiteList.deployed()
     .then(whiteList=>{
         return SantimentWhiteListUser.at("0xE7c2AD4edfaa7d30126DD85b33be2EaD7fbDe32e")//v 0.3.1 livenet
+        //return SantimentWhiteListUser.deployed()
         .then(whiteListUser => {
             return Promise.each(limitList, (e, n, len) => {
                 let min = toFinney(e.min);

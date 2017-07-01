@@ -5,8 +5,8 @@ module.exports = {
             port: 8545,
             network_id: 1,
             gas: 2000000,
-            gasPrice: "35000000000"
-            //,from: "0x00eCf92fA3678678a1B82899da1307a0083b6379"
+            gasPrice: "20000000000"
+            ,from: "0x00eCf92fA3678678a1B82899da1307a0083b6379"
         },
         development: {
           host: "localhost",

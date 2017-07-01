@@ -1,8 +1,11 @@
 var SantimentWhiteList = artifacts.require("./SantimentWhiteList.sol");
-let limitList = require("../san-whitelist-1v3.js");
+let limitList = require("../san-whitelist-1v2-1v4-diff.js");
 let Promise = require("bluebird");
 let BigNumber = require('bignumber.js');
 let assert = require('assert');
+
+const UPDATE_MODE = true;
+
 module.exports = function(done) {
 
     function toFinney(num) {
@@ -20,6 +23,7 @@ module.exports = function(done) {
     //return SantimentWhiteList.at("0xb3af6cc03212e659ebf2996fd34f68ebafe34c78")
     //return SantimentWhiteList.at("0x92e55C6EE3171779174cEbb27211120B730C155c") // version 0.3.0: livenet
     //return SantimentWhiteList.at("0xb3af6cc03212e659ebf2996fd34f68ebafe34c78") // =====> testrpc
+    //return SantimentWhiteList.deployed()
     return SantimentWhiteList.at("0xd2675d3ea478692ad34f09fa1f8bda67a9696bf7") // version 0.3.1: livenet
         .then(_whiteList => {
             whiteList = _whiteList;
@@ -30,7 +34,7 @@ module.exports = function(done) {
             console.log('recordNum: ', recordNum);
             console.log('chunkNr: ', chunkNr);
             let promises = [];
-            for(let i=recordNum; i < limitList.length; i+=BLOCK_LEN) {
+            for(let i= UPDATE_MODE ? 0 : recordNum; i < limitList.length; i+=BLOCK_LEN) {
                 let addrs = [];
                 let mins = [];
                 let maxs = [];
@@ -42,11 +46,11 @@ module.exports = function(done) {
                 args.push({addrs:addrs, mins:mins, maxs:maxs});
             }
             console.log('before estimate gas');
-            return whiteList.addPack.estimateGas(args[0].addrs, args[0].mins, args[0].maxs, chunkNr});
+            return whiteList.addPack.estimateGas(args[0].addrs, args[0].mins, args[0].maxs, chunkNr);
         }).then(gas => {
             console.log('gas: ', gas);
             return Promise.each(args, function(arg) {
-                return whiteList.addPack(arg.addrs, arg.mins, arg.maxs, chunkNr++, {gas:gas}).then(tx => {
+                return whiteList.addPack(arg.addrs, arg.mins, arg.maxs, chunkNr++, {gas:gas*2}).then(tx => {
                   //console.log("gasUsed:", tx.receipt.gasUsed,", cumulativeGasUsed:", tx.receipt.cumulativeGasUsed);
                   gasUsed += tx.receipt.gasUsed;
                   console.log('Uploaded chunk ', chunkNr-1, ', length: ', arg.addrs.length);
