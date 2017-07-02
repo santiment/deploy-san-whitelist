@@ -7,4 +7,6 @@ module.exports = [
 , { addr: "0x57593c260Ef8c20a71aEB52Fc2D62F3f485C3A32", min: 30, max: 36 }
 , { addr: "0xbFa362cF5Ba6265f71b426a6704f30CE52387D8b", min: 0.5, max: 1 }
 , { addr: "0x0476fCd55967789e5Be3796ACFD734c7721B8F62", min: 30, max: 0 }
+, { addr: "0xb081319e9fd204a60592607596e6580447076c23", min: 2, max: 0 }
+, { addr: "0x31d4f39A5B392387B8c74c592aE063D7849D985C", min: 2, max: 10 }
 ];
