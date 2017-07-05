@@ -1,6 +1,6 @@
 var SantimentWhiteList = artifacts.require("./SantimentWhiteList.sol");
-//let limitList = require("../san-whitelist-1v5.js");
-let limitList = require("../san-whitelist-1v5-1v6-diff.js");
+let limitList = require("../san-whitelist-1v5.js");
+//let limitList = require("../san-whitelist-1v2-1v4-diff.js");
 let Promise = require("bluebird");
 let BigNumber = require('bignumber.js');
 let assert = require('assert');
@@ -51,7 +51,7 @@ module.exports = function(done) {
         }).then(gas => {
             console.log('gas: ', gas);
             return Promise.each(args, function(arg) {
-                return whiteList.addPack(arg.addrs, arg.mins, arg.maxs, chunkNr++, {gas:gas+250000}).then(tx => {
+                return whiteList.addPack(arg.addrs, arg.mins, arg.maxs, chunkNr++, {gas:gas+50000}).then(tx => {
                   //console.log("gasUsed:", tx.receipt.gasUsed,", cumulativeGasUsed:", tx.receipt.cumulativeGasUsed);
                   gasUsed += tx.receipt.gasUsed;
                   console.log('Uploaded chunk ', chunkNr-1, ', length: ', arg.addrs.length);

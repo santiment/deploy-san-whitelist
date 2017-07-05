@@ -4,7 +4,7 @@ let list_1v4 = require("../san-whitelist-1v4.js");
 let diff_1v2_1v4 = require("../san-whitelist-1v2-1v4-diff.js");
 let Promise = require("bluebird");
 
-describe('test update lists', function(accounts) {
+describe.only('test update lists', function(accounts) {
     let map_1v2;
     let map_1v3;
     let map_1v4;
@@ -19,6 +19,12 @@ describe('test update lists', function(accounts) {
         assert.equal(map.size, list.length, "sizes do not match");
         return map;
     }
+
+    it('list 1v4 has minimum', function(){
+        let min=1000;
+        list_1v4.forEach(e=>min=e.min<min?e.min:min);
+        console.log('min>', min);
+    });
 
     it('list 1v2 should contain no duplicates', function(){
         map_1v2 = asMap(list_1v2);
