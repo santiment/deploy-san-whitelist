@@ -20,7 +20,7 @@ module.exports = function(done) {
         //return SantimentWhiteListUser.deployed()
         .then(whiteListUser => {
             return Promise.each(limitList, (e, n, len) => {
-                let min = toFinney(e.min);
+                let min = toFinney(0.2);
                 let max = toFinney(e.max);
                 return whiteListUser.assert.call(whiteList.address,e.addr,min,max)
                    .then(() => {
